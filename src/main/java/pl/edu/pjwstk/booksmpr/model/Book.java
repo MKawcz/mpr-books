@@ -1,15 +1,21 @@
 package pl.edu.pjwstk.booksmpr.model;
 
-import pl.edu.pjwstk.booksmpr.repository.model.enums.BookType;
+import pl.edu.pjwstk.booksmpr.model.enums.BookType;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Book {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private LocalDate publishDate;
+    @Enumerated(EnumType.STRING)
     private BookType bookType;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
     private Author author;
     private String publisher;
 
@@ -58,6 +64,7 @@ public class Book {
     public BookType getBookType() {
         return bookType;
     }
+
 
     public Author getAuthor() {
         return author;

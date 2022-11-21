@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjwstk.booksmpr.model.Author;
 import pl.edu.pjwstk.booksmpr.model.Book;
+import pl.edu.pjwstk.booksmpr.model.enums.BookType;
 import pl.edu.pjwstk.booksmpr.service.AuthorService;
 import pl.edu.pjwstk.booksmpr.service.BookService;
 
@@ -52,6 +53,11 @@ public class BookController {
     @PutMapping("{id}")
     public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable("id") Long id){
         return ResponseEntity.ok(bookService.updateBook(id, book));
+    }
+
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<Book>> findBooksByBookType(@PathVariable("type") BookType bookType){
+        return ResponseEntity.ok(bookService.getBooksByBookType(bookType));
     }
 
 }
